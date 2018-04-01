@@ -3,7 +3,7 @@ Pure-Javascript heap implementation. A heap is a simple data structure that main
 
 ## Basic Use
 ``` js
-const Heap = require('Heap')
+const Heap = require('jheap')
 /* create new heap */
 let h = new Heap()
 /* Add items */
@@ -23,7 +23,7 @@ let h = Heap.fromArray([2, 5, 7, 1, 8])
 let smallest = h.pop() // --> 1
 ```
 
-The heap supports the iterator protocol so this works as almost expected. However **these are destructive** becuase it pops the root off the heap as it iterates:
+The heap supports the iterator protocol so this works (almost) as expected. However **these are destructive** becuase it pops the root off the heap as it iterates:
 ``` js
 /* create new heap */
 let h = Heap.fromArray([2, 5, 7, 1, 8])
