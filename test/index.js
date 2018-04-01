@@ -7,7 +7,7 @@ describe("Without a compare function", function(){
         let h = new Heap()
         let arr = [8, 4, 2, 3, 7, 1, 9, 5, 6]
         arr.forEach(n => h.insert(n))
-        let n = h.peek()
+        let n = h.root
         assert.equal(n, 1)
     })
     it("items are popped in sorted descending order", function(){
@@ -34,7 +34,7 @@ describe("With a compare function", function(){
         let h = new Heap((a, b) => a.value > b.value)
         let arr = [{value: 2}, {value: 1}, {value: 7}, {value: 3}]
         arr.forEach(n => h.insert(n))
-        let n = h.peek()
+        let n = h.root
         assert.equal(n.value, 7)
     })
     it("items are popped in ascending order when comp function is opposite default", function(){
