@@ -1,6 +1,12 @@
 # jheap
 Pure-Javascript heap implementation. A heap is a simple data structure that maintains 'heap' order while supporting basic operations of insertion and extracting the minumim.
 
+## Install
+Using npm:
+```shell
+$ npm i --save jheap
+```
+
 ## Basic Use
 ``` js
 const Heap = require('jheap')
