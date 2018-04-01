@@ -2,7 +2,7 @@ const Heap = require('../index')
 const assert = require('assert')
 let h = new Heap()
 
-describe("Without a compare function", function(){
+describe("Basic operations", function(){
     it("first element is smallest item", function(){
         let h = new Heap()
         let arr = [8, 4, 2, 3, 7, 1, 9, 5, 6]
@@ -27,6 +27,14 @@ describe("Without a compare function", function(){
         arr.forEach(n => h.insert(n))
         let sorted = Array.from(h)
         assert.deepStrictEqual(sorted, [1, 2, 3, 4, 5, 6, 7, 8, 9])
+    })
+    it("copy produces a new independent heap", function(){
+        let h = new Heap()
+        let arr = [8, 4, 2, 3, 7, 1, 9, 5, 6]
+        arr.forEach(n => h.insert(n))
+        let h2 = h.copy()
+        let sorted = Array.from(h)
+        assert.equal(h2.root, 1)
     })
 })
 describe("With a compare function", function(){

@@ -3,9 +3,8 @@
  * Storage is a simple array
  * Supports insert and pop for both min and max heaps
  * 
- * Pass in optional value_function to control how objects are sorted
- * value_function should take a single argument and return a value which
- * will be used in comparisons
+ * Pass in optional cmp function to control how objects are sorted
+ * cmp should take a two arguments and return a boolean indicating which should be sorted first
  * 
  * Mark Meyer | mark@photo-mark.com
  * 
@@ -27,6 +26,11 @@ class Heap{
     }
     get length(){
          return this._s.length
+    }
+    copy () {
+        let copy = new Heap(this._comp)
+        copy._s = this._s.slice()
+        return copy
     }
     *[Symbol.iterator](){
         /* Allows iteration over heap 

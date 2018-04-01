@@ -44,6 +44,15 @@ h = Heap.fromArray([2, 5, 7, 1, 8])
 let root = h.root // --> 1
 ```
 
+To produce arrays from heap in a non-destructive way, first create a copy. This is only a shallow copy. If the heap contains complex objects, this copy will still point to the original objects
+```js
+h = Heap.fromArray([2, 5, 7, 1, 8])
+h2 = h.copy()
+array = [...h2] // --> [ 1, 2, 5, 7, 8 ]
+h.root // --> 1
+h2.root // undefined
+```
+
 ## Compare function
 The default behavior is a min-heap sorted by the items. The root will always be the smallest value. To alter this, for example to create a max-heap, pass a function into the contructor that returns a boolean.
 
