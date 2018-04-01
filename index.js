@@ -44,7 +44,7 @@ class Heap{
         this._s.push(object)
         this.bubbleup(this.length -1)
     }
-    peek(){
+    get root(){
         return this._s[0]
     }
     pop(){
