@@ -1,10 +1,10 @@
 # jheap
-Pure-Javascript heap implementation. A heap is a simple data structure that maintains 'heap' order while supporting basic operations of insertion and extracting the minumim.
+Pure-Javascript heap implementation. A heap is a simple data structure that maintains 'heap' order while supporting basic operations of insertion and extracting the minumim. JHeap amortizes the size of the underlying storage to allow very fast heap operations even on large heaps. 
 
 ## Install
 Using npm:
 ```shell
-$ npm i --save jheap
+$ npm i jheap --save
 ```
 
 ## Basic Use
@@ -17,8 +17,10 @@ h.insert(10)
 h.insert(1)
 h.insert(5)
 h.insert(2)
+let length = h.length // --> 4
 /* extract root */
 let smallest = h.pop() // --> 1
+length = h.length // --> 3
 ```
 You can also create a heap from an array:
 ``` js
@@ -50,25 +52,29 @@ h = Heap.fromArray([2, 5, 7, 1, 8])
 let root = h.root // --> 1
 ```
 
-To produce arrays from heap in a non-destructive way, first create a copy. This is only a shallow copy. If the heap contains complex objects, this copy will still point to the original objects
+To produce an array from a heap in a non-destructive way, first create a copy. This is only a shallow copy. If the heap contains complex objects, this copy will still point to the original objects
 ```js
 h = Heap.fromArray([2, 5, 7, 1, 8])
 h2 = h.copy()
 array = [...h2] // --> [ 1, 2, 5, 7, 8 ]
+/* original is unaffected */
 h.root // --> 1
+h.length // --> 5
+/* copy has been exhausted */
 h2.root // undefined
+h2.length // 0
 ```
 
 ## Compare function
-The default behavior is a min-heap sorted by the items. The root will always be the smallest value. To alter this, for example to create a max-heap, pass a function into the contructor that returns a boolean.
+The default behavior of jheap is a min-heap sorted by the items. The root will always be the smallest value. To alter this, for example to create a max-heap, pass a function that takes two arguments `a` and `b` into the contructor that returns true when `a` should bubble up above `b`.
 
 ```js
-let h = new Heap((a,b) => a > b)
-h.insert(6)
-h.insert(10)
-h.insert(5)
-h.insert(2)
-let root = h.root // --> 10
+let maxHeap = new Heap((a,b) => a > b)
+maxHeap.insert(6)
+maxHeap.insert(10)
+maxHeap.insert(5)
+maxHeap.insert(2)
+let root = maxHeap.root // --> 10
 ```
 
 You can also use this to store more complex objects in the heap:
