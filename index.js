@@ -1,6 +1,6 @@
 /**
  * Simple pure javascript heap implimentation
- * Storage is a simple array
+ * Storage is a simple array with amortized insert costs to allow very fast inserts on large heaps
  * Supports insert and pop for both min and max heaps
  * 
  * Pass in optional cmp function to control how objects are sorted
@@ -9,6 +9,7 @@
  * Mark Meyer | mark@photo-mark.com
  * 
  */
+const AMORT_MULT = 2
 
 class Heap{
     constructor(cmp){
@@ -19,7 +20,7 @@ class Heap{
     static fromArray(arr, comp = ((a, b) => a < b)) {
         /* from Skiena */
         let h = new Heap(comp)
-        h._s = new Array(arr.length * 2)
+        h._s = new Array(arr.length)
         for (let i = 0; i < arr.length; i++){
           h._s[i] = arr[i]  
         }
@@ -50,6 +51,7 @@ class Heap{
     copy () {
         let copy = new Heap(this._comp)
         copy._s = this._s.slice()
+        copy._size = this._size
         return copy
     }
     heapify(){
@@ -59,8 +61,8 @@ class Heap{
     }
     insert(object){
         if(this._size == this._s.length) {
-            let newArr = new Array(this._size * 2)
-            for (let i =0 ; i < this._s.length; i++)(
+            let newArr = new Array(this._size * AMORT_MULT)
+            for (let i = 0; i < this._s.length; i++)(
                 newArr[i] = this._s[i]
             )
             this._s = newArr
@@ -70,21 +72,19 @@ class Heap{
         this.bubbleup(this.length -1)
     }
     pop(){
-        if (this.length === 0){
-            return undefined
-        }
+        if (this.length === 0) return undefined
         if (this.length === 1) {
             this._size -= 1
             let item = this._s[0]
             this._s =  new Array(1)
-            return item // last item or undefined if empty
+            return item 
         }
         let item = this._s[0]
-        this._s[0] = this._s[this._size -1]
-        this._s[this._size -1] = undefined
+        this._s[0] = this._s[this._size - 1]
+        this._s[this._size - 1] = undefined
         this.bubbledown(0)
         this._size -= 1
-        if (this._s.length > this._size * 2){
+        if (this._s.length > this._size * AMORT_MULT){
             this._s = this._s.slice(0, this._size)
         }
         return item
@@ -104,7 +104,7 @@ class Heap{
  
         for (let i = 0; i <= 1; i++){
             if(c+i < this.length && this._comp(this._s[c+i], this._s[swapIndex])){
-                    swapIndex = c+i
+                swapIndex = c+i
             }
         }
         if (swapIndex != index){
