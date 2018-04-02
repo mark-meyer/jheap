@@ -17,10 +17,10 @@ h.insert(10)
 h.insert(1)
 h.insert(5)
 h.insert(2)
-let length = h.length // --> 4
+let length = h.length  // --> 4
 /* extract root */
 let smallest = h.pop() // --> 1
-length = h.length // --> 3
+length = h.length      // --> 3
 ```
 You can also create a heap from an array:
 ``` js
@@ -58,11 +58,11 @@ h = Heap.fromArray([2, 5, 7, 1, 8])
 h2 = h.copy()
 array = [...h2] // --> [ 1, 2, 5, 7, 8 ]
 /* original is unaffected */
-h.root // --> 1
-h.length // --> 5
+h.root     // --> 1
+h.length   // --> 5
 /* copy has been exhausted */
-h2.root // undefined
-h2.length // 0
+h2.root    // --> undefined
+h2.length  // --> 0
 ```
 
 ## Compare function
