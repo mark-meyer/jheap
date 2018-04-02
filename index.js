@@ -12,20 +12,25 @@
 
 class Heap{
     constructor(cmp){
-        this._s = []
+        this._s = new Array(1)
         this._comp = cmp || ((a, b) => a < b)
+        this._size = 0
     }
     static fromArray(arr, comp = ((a, b) => a < b)) {
         /* from Skiena */
         let h = new Heap(comp)
-        h._s = arr.slice()
+        h._s = new Array(arr.length * 2)
+        for (let i = 0; i < arr.length; i++){
+          h._s[i] = arr[i]  
+        }
+        h._size = arr.length
         for (let i = arr.length; i >= 0; i--){
             h.bubbledown(i)
         }
         return h
     }
     get length(){
-         return this._s.length
+         return this._size
     }
     get root(){
         return this._s[0]
@@ -53,16 +58,35 @@ class Heap{
         } 
     }
     insert(object){
-        this._s.push(object)
+        if(this._size == this._s.length) {
+            let newArr = new Array(this._size * 2)
+            for (let i =0 ; i < this._s.length; i++)(
+                newArr[i] = this._s[i]
+            )
+            this._s = newArr
+        }
+        this._s[this._size] = object
+        this._size += 1
         this.bubbleup(this.length -1)
     }
     pop(){
-        if (this.length <= 1) {
-            return this._s.pop() // last item or undefined if empty
+        if (this.length === 0){
+            return undefined
+        }
+        if (this.length === 1) {
+            this._size -= 1
+            let item = this._s[0]
+            this._s =  new Array(1)
+            return item // last item or undefined if empty
         }
         let item = this._s[0]
-        this._s[0] = this._s.pop()
+        this._s[0] = this._s[this._size -1]
+        this._s[this._size -1] = undefined
         this.bubbledown(0)
+        this._size -= 1
+        if (this._s.length > this._size * 2){
+            this._s = this._s.slice(0, this._size)
+        }
         return item
     }
     bubbleup(index){
