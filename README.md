@@ -93,3 +93,18 @@ let h = Heap.fromArray(colors, (a,b) => a.rank < b.rank)
 
 let root = h.root // --> { rank: 2, name: 'blue' }
 ```
+
+## Maintain heap order
+Altering the sort value of elements within the heap can break the heap order. Calling `heapify()` on the heap will repair it
+```js
+let colors = [
+    {rank:6, name:"orange"},
+    {rank:2, name:"blue"},
+    {rank:5, name:"yellow"},
+    {rank:9, name:"green"}
+]
+let h = Heap.fromArray(colors, (a,b) => a.rank < b.rank)
+colors[0].rank = 1
+let root = h.root // --> still points to blue
+h.heapify()
+root = h.root // --> now correctly points to orange

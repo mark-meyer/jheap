@@ -18,7 +18,7 @@ class Heap{
     static fromArray(arr, comp = ((a, b) => a < b)) {
         /* from Skiena */
         let h = new Heap(comp)
-        h._s = arr
+        h._s = arr.slice()
         for (let i = arr.length; i >= 0; i--){
             h.bubbledown(i)
         }
@@ -27,11 +27,9 @@ class Heap{
     get length(){
          return this._s.length
     }
-    copy () {
-        let copy = new Heap(this._comp)
-        copy._s = this._s.slice()
-        return copy
-    }
+    get root(){
+        return this._s[0]
+    }   
     *[Symbol.iterator](){
         /* Allows iteration over heap 
            i.e. Array.from(heap) or for (n of heap){}
@@ -44,12 +42,19 @@ class Heap{
             v = this.pop()
         }     
     }
+    copy () {
+        let copy = new Heap(this._comp)
+        copy._s = this._s.slice()
+        return copy
+    }
+    heapify(){
+        for (let i = this._s.length; i >= 0; i--){
+            this.bubbledown(i)
+        } 
+    }
     insert(object){
         this._s.push(object)
         this.bubbleup(this.length -1)
-    }
-    get root(){
-        return this._s[0]
     }
     pop(){
         if (this.length <= 1) {

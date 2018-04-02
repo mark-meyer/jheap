@@ -69,3 +69,14 @@ describe("fromArray factory", function(){
         assert.deepStrictEqual(Array.from(h), [9, 8, 7, 6, 5, 4, 3, 2, 1])
     })
 })
+describe("heapfiy", function(){
+    it("properly reorders heap when heapify is called", function(){
+        let h = new Heap((a, b) => a.value < b.value)
+        let arr = [{value: 2, name: "second"}, {value: 1, name: "first"}, {value: 7, name: "seventh"}, {value: 3, name: "third"}]
+        arr.forEach(n => h.insert(n))
+        assert.strictEqual(h.root, arr[1])
+        arr[0].value = 0
+        h.heapify()
+        assert.strictEqual(h.root, arr[0])
+    })
+})
