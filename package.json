@@ -1,6 +1,6 @@
 {
   "name": "jheap",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Simple pure-javascript heap",
   "main": "index.js",
   "scripts": {
