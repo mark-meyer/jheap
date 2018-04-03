@@ -18,12 +18,8 @@ class Heap{
         this._size = 0
     }
     static fromArray(arr, comp = ((a, b) => a < b)) {
-        /* from Skiena */
         let h = new Heap(comp)
-        h._s = new Array(arr.length)
-        for (let i = 0; i < arr.length; i++){
-          h._s[i] = arr[i]  
-        }
+        h._s = arr.slice()
         h._size = arr.length
         for (let i = arr.length; i >= 0; i--){
             h.bubbledown(i)
@@ -90,7 +86,7 @@ class Heap{
         return item
     }
     bubbleup(index){
-        if(index <= 0) return // at top
+        if(index <= 0) return
         let parent_index = Math.floor((index-1)/2)
        
         if (this._comp(this._s[index], this._s[parent_index])){
