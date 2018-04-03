@@ -123,3 +123,4 @@ colors[0].rank = 1
 let root = h.root // --> still points to blue
 h.heapify()
 root = h.root // --> now correctly points to orange
+```
