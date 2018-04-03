@@ -88,7 +88,6 @@ class Heap{
     bubbleup(index){
         if(index <= 0) return
         let parent_index = Math.floor((index-1)/2)
-       
         if (this._comp(this._s[index], this._s[parent_index])){
             [this._s[parent_index], this._s[index]] = [this._s[index],this._s[parent_index] ]
             this.bubbleup(parent_index)
@@ -99,7 +98,7 @@ class Heap{
         let swapIndex = index
  
         for (let i = 0; i <= 1; i++){
-            if(c+i < this.length && this._comp(this._s[c+i], this._s[swapIndex])){
+            if(c+i < this.length - 1 && this._comp(this._s[c+i], this._s[swapIndex])){
                 swapIndex = c+i
             }
         }

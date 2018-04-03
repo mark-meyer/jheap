@@ -31,7 +31,7 @@ let h = Heap.fromArray([2, 5, 7, 1, 8])
 let smallest = h.pop() // --> 1
 ```
 
-The heap supports the iterator protocol so this works (almost) as expected. However **these are destructive** becuase it pops the root off the heap as it iterates:
+The heap supports the iterator protocol so this works (almost) as expected. However, **these are destructive** becuase it extracts the root off the heap as it iterates:
 ``` js
 /* create new heap */
 let h = Heap.fromArray([2, 5, 7, 1, 8])
@@ -52,7 +52,7 @@ h = Heap.fromArray([2, 5, 7, 1, 8])
 let root = h.root // --> 1
 ```
 
-To produce an array from a heap in a non-destructive way, first create a copy. This is only a shallow copy. If the heap contains complex objects, this copy will still point to the original objects
+To produce an array from a heap in a non-destructive way, first create a copy. This is a shallow copy. If the heap contains complex objects, this copy will still point to the original objects
 ```js
 h = Heap.fromArray([2, 5, 7, 1, 8])
 h2 = h.copy()
@@ -75,6 +75,15 @@ maxHeap.insert(10)
 maxHeap.insert(5)
 maxHeap.insert(2)
 let root = maxHeap.root // --> 10
+```
+
+```js
+let stringHeap = new Heap((a,b) => a.toLowerCase() < b.toLowerCase())
+stringHeap.insert('Theropoda')
+stringHeap.insert('ornithischia')
+stringHeap.insert('sauropodomorpha')
+stringHeap.insert('Diplodocoidea')
+let a = [...stringHeap] // --> [ 'Diplodocoidea', 'ornithischia', 'sauropodomorpha', 'Theropoda' ]
 ```
 
 You can also use this to store more complex objects in the heap:

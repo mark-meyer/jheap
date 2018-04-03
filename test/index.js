@@ -56,6 +56,11 @@ describe("With a compare function", function(){
             [n, l] = [l, h.pop()]
         } while (l)
     })
+    it("works with more complex compare functions", function(){
+        let h = Heap.fromArray(["Mark", "holly", "Al", "becky"], ((a,b)=> a.toLowerCase() < b.toLowerCase()))
+        let arr = [...h]
+        assert.deepStrictEqual(arr, ["Al", "becky", "holly", "Mark"])
+    })
 })
 describe("fromArray factory", function(){
     it("produces heap from array", function(){
