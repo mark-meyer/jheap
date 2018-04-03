@@ -32,7 +32,7 @@ let smallest = h.pop() // --> 1
 ```
 
 The heap supports the iterator protocol so this works (almost) as expected. However, **these are destructive** becuase it extracts the root off the heap as it iterates:
-``` js
+```js
 /* create new heap */
 let h = Heap.fromArray([2, 5, 7, 1, 8])
 let array = Array.from(h) // --> [1, 2, 5, 7, 8]
