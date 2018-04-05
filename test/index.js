@@ -84,4 +84,8 @@ describe("heapfiy", function(){
         h.heapify()
         assert.strictEqual(h.root, arr[0])
     })
+    it("should properly heapify leaf nodes", function(){
+        let h =  Heap.fromArray([100, 100, 100, 100, 2], (a, b) => a< b)
+        assert.equal(2, h.pop() )
+    })
 })

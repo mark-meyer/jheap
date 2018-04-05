@@ -21,9 +21,7 @@ class Heap{
         let h = new Heap(comp)
         h._s = arr.slice()
         h._size = arr.length
-        for (let i = arr.length; i >= 0; i--){
-            h.bubbledown(i)
-        }
+        h.heapify()
         return h
     }
     get length(){
@@ -51,7 +49,7 @@ class Heap{
         return copy
     }
     heapify(){
-        for (let i = this._s.length; i >= 0; i--){
+        for (let i = this.length - 1; i >= 0; i--){
             this.bubbledown(i)
         } 
     }
@@ -63,7 +61,7 @@ class Heap{
             )
             this._s = newArr
         }
-        this._s[this._size] = object
+        this._s[this.length] = object
         this._size += 1
         this.bubbleup(this.length -1)
     }
@@ -76,10 +74,10 @@ class Heap{
             return item 
         }
         let item = this._s[0]
-        this._s[0] = this._s[this._size - 1]
+        this._s[0] = this._s[this.length - 1]
         this._s[this._size - 1] = undefined
-        this.bubbledown(0)
         this._size -= 1
+        this.bubbledown(0)     
         if (this._s.length > this._size * AMORT_MULT){
             this._s = this._s.slice(0, this._size)
         }
@@ -98,12 +96,14 @@ class Heap{
         let swapIndex = index
  
         for (let i = 0; i <= 1; i++){
-            if(c+i < this.length - 1 && this._comp(this._s[c+i], this._s[swapIndex])){
-                swapIndex = c+i
+            if(c+i < this.length ){
+                if(this._comp(this._s[c+i], this._s[swapIndex])){
+                    swapIndex = c+i
+                }
             }
         }
         if (swapIndex != index){
-            [this._s[swapIndex], this._s[index]] = [this._s[index],this._s[swapIndex] ]
+            [this._s[swapIndex], this._s[index]] = [this._s[index],this._s[swapIndex] ];
             this.bubbledown(swapIndex)
         }    
      }
