@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Simple pure javascript heap implimentation
  * Storage is a simple array with amortized insert costs to allow very fast inserts on large heaps
