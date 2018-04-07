@@ -51,7 +51,7 @@ class Heap{
         return copy
     }
     heapify(){
-        for (let i = this.length - 1; i >= 0; i--){
+        for (let i = this._size - 1; i >= 0; i--){
             this.bubbledown(i)
         } 
     }
@@ -63,51 +63,59 @@ class Heap{
             )
             this._s = newArr
         }
-        this._s[this.length] = object
+        this._s[this._size] = object
         this._size += 1
-        this.bubbleup(this.length -1)
+        this.bubbleup(this._size -1)
     }
     pop(){
-        if (this.length === 0) return undefined
-        if (this.length === 1) {
+        if (this._size === 0) return undefined
+        if (this._size === 1) {
             this._size -= 1
             let item = this._s[0]
             this._s =  new Array(1)
             return item 
         }
         let item = this._s[0]
-        this._s[0] = this._s[this.length - 1]
+        this._s[0] = this._s[this._size - 1]
         this._s[this._size - 1] = undefined
         this._size -= 1
-        this.bubbledown(0)     
+        this.bubbledown(0)  
+           
         if (this._s.length > this._size * AMORT_MULT){
             this._s = this._s.slice(0, this._size)
         }
         return item
     }
     bubbleup(index){
-        if(index <= 0) return
-        let parent_index = Math.floor((index-1)/2)
-        if (this._comp(this._s[index], this._s[parent_index])){
-            [this._s[parent_index], this._s[index]] = [this._s[index],this._s[parent_index] ]
-            this.bubbleup(parent_index)
+        let bubbled = this._s[index]
+        let comp = this._comp
+        while(index > 0) {
+            let parent_index = Math.floor((index-1)/2)
+            if (! comp(bubbled, this._s[parent_index])) break
+            this._s[index] = this._s[parent_index]
+            index = parent_index
         }
+        this._s[index] = bubbled
     }
     bubbledown(index){
-        let c = index * 2 + 1 /* child index */
-        let swapIndex = index
- 
-        for (let i = 0; i <= 1; i++){
-            if(c+i < this.length ){
-                if(this._comp(this._s[c+i], this._s[swapIndex])){
-                    swapIndex = c+i
-                }
+        //let swapIndex
+        let cmp = this._comp
+        let len = this._size
+        let bubbled = this._s[index]
+        let max = Math.floor(this._size / 2)
+        while (index < max){
+            let c_l = index * 2 + 1 
+            let c_r = c_l + 1
+            let lightest = this._s[c_l]    
+            if(c_r < len && cmp(this._s[c_r], lightest) ){
+                c_l = c_r
+                lightest = this._s[c_r]
             }
-        }
-        if (swapIndex != index){
-            [this._s[swapIndex], this._s[index]] = [this._s[index],this._s[swapIndex] ];
-            this.bubbledown(swapIndex)
-        }    
+            if(cmp(bubbled, lightest) ) break
+            this._s[index] = lightest
+            index = c_l
+        } 
+        this._s[index] = bubbled
      }
  }
 
