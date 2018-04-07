@@ -98,7 +98,6 @@ class Heap{
         this._s[index] = bubbled
     }
     bubbledown(index){
-        //let swapIndex
         let cmp = this._comp
         let len = this._size
         let bubbled = this._s[index]
