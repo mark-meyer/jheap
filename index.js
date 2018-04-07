@@ -15,7 +15,7 @@ const AMORT_MULT = 2
 
 class Heap{
     constructor(cmp){
-        this._s = new Array(1)
+        this._s = [] 
         this._comp = cmp || ((a, b) => a < b)
         this._size = 0
     }
@@ -56,34 +56,17 @@ class Heap{
         } 
     }
     insert(object){
-        if(this._size == this._s.length) {
-            let newArr = new Array(this._size * AMORT_MULT)
-            for (let i = 0; i < this._s.length; i++)(
-                newArr[i] = this._s[i]
-            )
-            this._s = newArr
-        }
-        this._s[this._size] = object
+        this._s.push(object)
         this._size += 1
         this.bubbleup(this._size -1)
     }
     pop(){
-        if (this._size === 0) return undefined
-        if (this._size === 1) {
-            this._size -= 1
-            let item = this._s[0]
-            this._s =  new Array(1)
-            return item 
-        }
+        if (this._size === 0) return undefined     
         let item = this._s[0]
         this._s[0] = this._s[this._size - 1]
         this._s[this._size - 1] = undefined
         this._size -= 1
-        this.bubbledown(0)  
-           
-        if (this._s.length > this._size * AMORT_MULT){
-            this._s = this._s.slice(0, this._size)
-        }
+        this.bubbledown(0)          
         return item
     }
     bubbleup(index){
