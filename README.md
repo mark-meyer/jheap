@@ -1,5 +1,5 @@
 # jheap
-Pure-Javascript heap implementation. A heap is a simple data structure that maintains 'heap' order while supporting basic operations of insertion and extracting the minumim. JHeap amortizes the size of the underlying storage to allow very fast heap operations even on large heaps. 
+Pure-Javascript heap implementation. A heap is a simple data structure that maintains 'heap' order while supporting basic operations of insertion and extracting the minumim.  
 
 ## Install
 Using npm:

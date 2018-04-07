@@ -12,7 +12,9 @@
   },
   "keywords": [
     "datastructure",
-    "heap"
+    "heap",
+    "priority queue",
+    "algorithm"
   ],
   "author": "Mark Meyer",
   "license": "MIT",
