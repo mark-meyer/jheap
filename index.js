@@ -2,7 +2,6 @@
 
 /**
  * Simple pure javascript heap implimentation
- * Storage is a simple array with amortized insert costs to allow very fast inserts on large heaps
  * Supports insert and pop for both min and max heaps
  * 
  * Pass in optional cmp function to control how objects are sorted
@@ -11,7 +10,6 @@
  * Mark Meyer | mark@photo-mark.com
  * 
  */
-const AMORT_MULT = 2
 
 class Heap{
     constructor(cmp){
